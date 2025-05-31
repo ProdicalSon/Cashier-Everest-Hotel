@@ -82,15 +82,15 @@ $totalCash = $totalNetSales - $totalExpenses - $totalComplimentary - $totalUnpai
 $html .= "
     <h3>Summary</h3>
     <table border='1' cellpadding='8' cellspacing='0' width='100%'>
-        <tr><td><strong>Total Sales (Input):</strong></td><td>KES " . number_format($totalSales, 2) . "</td></tr>
-        <tr><td><strong>Total Cancelled:</strong></td><td>KES " . number_format($totalCancelled, 2) . "</td></tr>
-        <tr><td><strong>Total Net Sales:</strong></td><td>KES " . number_format($totalNetSales, 2) . "</td></tr>
-        <tr><td><strong>Total Paid Bills:</strong></td><td>KES " . number_format($totalPaidBills, 2) . "</td></tr>
-        <tr><td><strong>Total Unpaid Bills:</strong></td><td>KES " . number_format($totalUnpaid, 2) . "</td></tr>
-        <tr><td><strong>Total Expenses:</strong></td><td>KES " . number_format($totalExpenses, 2) . "</td></tr>
-        <tr><td><strong>Total Complimentary:</strong></td><td>KES " . number_format($totalComplimentary, 2) . "</td></tr>
-        <tr><td><strong>Total Mpesa (Net):</strong></td><td>KES " . number_format($totalMpesa, 2) . "</td></tr>
-        <tr><td><strong>Total Cash (Balance):</strong></td><td>KES " . number_format($totalCash, 2) . "</td></tr>
+        <tr><td><strong>Total Sales</strong></td><td>KES " . number_format($totalSales, 2) . "</td></tr>
+        <tr><td><strong>Total Cancelled</strong></td><td>KES " . number_format($totalCancelled, 2) . "</td></tr>
+        <tr><td><strong>Total Net Sales</strong></td><td>KES " . number_format($totalNetSales, 2) . "</td></tr>
+        <tr><td><strong>Total Paid Bills</strong></td><td>KES " . number_format($totalPaidBills, 2) . "</td></tr>
+        <tr><td><strong>Total Unpaid Bills</strong></td><td>KES " . number_format($totalUnpaid, 2) . "</td></tr>
+        <tr><td><strong>Total Expenses</strong></td><td>KES " . number_format($totalExpenses, 2) . "</td></tr>
+        <tr><td><strong>Total Complimentary</strong></td><td>KES " . number_format($totalComplimentary, 2) . "</td></tr>
+        <tr><td><strong>Total Mpesa (Net)</strong></td><td>KES " . number_format($totalMpesa, 2) . "</td></tr>
+        <tr><td><strong>Total Cash (Balance)</strong></td><td>KES " . number_format($totalCash, 2) . "</td></tr>
     </table>
 ";
 
