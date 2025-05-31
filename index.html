@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cashier Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Dashboard</a></li>
+            <li><a href="transactiondetails.php">Transactions</a></li>
+            <li><a href="#reports">Reports</a></li>
+        </ul>
+    </nav>
+
+    <!-- Cashier Monitor Section -->
+    <div class="container1">
+        <h2>CASHIER SALES MONITOR</h2>
+
+    </div>
+
+    <!-- Forms Section -->
+    <div class="container">
+
+        <div class="form-box">
+            <h3>Mpesa Details Form</h3>
+            <form action="register_mpesa.php" method="POST">
+                <label for="name">Cashier Name</label>
+                <input type="text" name="namee" required placeholder="Enter cashier name" title="Cashier Name">
+
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" required placeholder="Enter amount" title="Amount">
+
+                <label for="code">Transaction Code</label>
+                <input type="text" name="code" required placeholder="Enter transaction code" title="Transaction Code">
+
+                <button type="submit">Submit Mpesa Details</button>
+            </form>
+        </div>
+
+
+        <div class="form-box">
+            <h3>Cancelled Sales Form</h3>
+            <form action="register_cancelled_sales.php" method="POST">
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" required title="Amount" placeholder="Enter paid bills amount">
+
+                <label for="invoice_code">Invoice Code</label>
+                <input type="number" name="invoice_code" required title="Invoice ode" placeholder="Enter Invoice Code">
+
+                <button type="submit">Submit Paid Bills</button>
+            </form>
+        </div>
+
+
+
+        <div class="form-box">
+            <h3>Paid Bills Form</h3>
+            <form action="register_paid_bills.php" method="POST">
+                <label for="name">Name</label>
+                <input type="text" name="namee" required title="Cashier Name" placeholder="Enter cashier name">
+
+                <label for="paid_bills">Amount</label>
+                <input type="number" name="paid_bills" required title="Paid Bills Amount" placeholder="Enter paid bills amount">
+
+                <label for="invoice_code">Invoice Code</label>
+                <input type="number" name="invoice_code" required title="Invoice ode" placeholder="Enter Invoice Code">
+
+                <button type="submit">Submit Paid Bills</button>
+            </form>
+        </div>
+
+        <div class="form-box">
+            <h3>Unpaid Bills Form</h3>
+            <form action="register_unpaid_bills.php" method="POST">
+                <label for="name">Name</label>
+                <input type="text" name="namee" required title="Name" placeholder="Enter name">
+
+                <label for="unpaid_bills">Amount</label>
+                <input type="number" name="unpaid_bills" required title="Unpaid Bills Amount" placeholder="Enter unpaid bills amount">
+
+                <label for="invoice_code">Invoice Code</label>
+                <input type="number" name="invoice_code" required title="Invoice Code" placeholder="Enter Invoice Code">
+
+                <button type="submit">Submit Unpaid Bills</button>
+            </form>
+        </div>
+
+        <div class="form-box">
+            <h3>Expenses Form</h3>
+            <form action="register_expenses.php" method="POST">
+                <label for="name">Item Name</label>
+                <input type="text" name="namee" required title="Item Name" placeholder="Enter item name">
+
+                <label for="expenses">Expense Amount</label>
+                <input type="number" name="amount" required title="Expense Amount" placeholder="Enter expense amount">
+
+                <button type="submit">Submit Expense</button>
+            </form>
+        </div>
+
+        <div class="form-box">
+            <h3>Complimentary Form</h3>
+            <form action="register_complimentary.php" method="POST">
+                <label for="name">Amount</label>
+                <input type="number" name="amount" required title="Amount" placeholder="Enter amount">
+
+                <label for="complimentary">Invoice Code</label>
+                <input type="number" name="complimentary" required title="Invoice Code" placeholder="Enter invoice code">
+
+                <button type="submit">Submit Complimentary</button>
+            </form>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
