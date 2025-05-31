@@ -60,6 +60,14 @@ function fetchData($conn, $table, $fields, $reportDate) {
     <input type="submit" value="SEARCH">
 </form>
 
+<form method="POST" action="generate_report.php" style="text-align:center; margin-top: 20px;">
+    <input type="hidden" name="report_date" value="<?= htmlspecialchars($reportDate) ?>">
+    <label for="total_sales">Enter Total Sales:</label>
+    <input type="number" step="0.01" name="total_sales" id="total_sales" required>
+    <input type="submit" value="Download Restaurant Report as PDF">
+</form>
+
+
 <?php
 foreach ($transactions as $label => [$table, $fieldStr, $columns]) {
     $result = fetchData($conn, $table, $fieldStr, $reportDate);
