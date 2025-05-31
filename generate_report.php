@@ -5,7 +5,6 @@ use Dompdf\Options;
 
 include 'db_config.php';
 
-
 $reportDate = $_POST['report_date'];
 $totalSales = floatval($_POST['total_sales']);
 $formattedDate = strtoupper(date('jS F, Y', strtotime($reportDate)));
@@ -36,17 +35,32 @@ $totals = [
 foreach ($transactions as $label => [$table, $fields]) {
     $result = fetchData($conn, $table, $fields, $reportDate);
     $html .= "<h3>$label Transactions</h3>";
+
     if ($result && $result->num_rows > 0) {
-        $html .= "<table border='1' cellpadding='5' cellspacing='0' width='100%'>
-                    <tr><th>Name/Item</th><th>Amount (KES)</th><th>Code/Invoice</th><th>Date</th></tr>";
+        // Set columns depending on type
+        if (in_array($label, ['Complimentary', 'Cancelled Sale'])) {
+            $html .= "<table border='1' cellpadding='5' cellspacing='0' width='100%'>
+                        <tr><th>Amount (KES)</th><th>Code/Invoice</th><th>Date</th></tr>";
+        } else {
+            $html .= "<table border='1' cellpadding='5' cellspacing='0' width='100%'>
+                        <tr><th>Name/Item</th><th>Amount (KES)</th><th>Code/Invoice</th><th>Date</th></tr>";
+        }
+
         while ($row = $result->fetch_assoc()) {
-            $name = $row['namee'] ?? '---';
             $amount = number_format($row['amount'], 2);
-            $code = $row['code'] ?? '---';
+            $code = !empty($row['code']) ? $row['code'] : '---';
             $date = date('d-m-Y', strtotime($row['created_at']));
-            $html .= "<tr><td>$name</td><td>$amount</td><td>$code</td><td>$date</td></tr>";
+
+            if (in_array($label, ['Complimentary', 'Cancelled Sale'])) {
+                $html .= "<tr><td>$amount</td><td>$code</td><td>$date</td></tr>";
+            } else {
+                $name = isset($row['namee']) && !empty($row['namee']) ? $row['namee'] : '---';
+                $html .= "<tr><td>$name</td><td>$amount</td><td>$code</td><td>$date</td></tr>";
+            }
+
             $totals[$label] += $row['amount'];
         }
+
         $html .= "</table><br>";
     } else {
         $html .= "<p>No $label transactions recorded on $formattedDate.</p>";
@@ -59,7 +73,7 @@ $totalPaidBills = $totals['Paid Bill'];
 $totalUnpaid = $totals['Unpaid Bill'];
 $totalExpenses = $totals['Expense'];
 $totalComplimentary = $totals['Complimentary'];
-$totalMpesa = $totals['Mpesa'] - $totals['Paid Bill']; // as per formula
+$totalMpesa = $totals['Mpesa'] - $totals['Paid Bill'];
 
 $totalNetSales = $totalSales - $totalCancelled;
 $totalCash = $totalNetSales - $totalExpenses - $totalComplimentary - $totalUnpaid - $totalMpesa;
@@ -80,7 +94,7 @@ $html .= "
     </table>
 ";
 
-
+// Generate PDF
 $options = new Options();
 $options->set('isRemoteEnabled', true);
 
@@ -88,7 +102,6 @@ $dompdf = new Dompdf($options);
 $dompdf->loadHtml($html);
 $dompdf->setPaper('A4', 'portrait');
 $dompdf->render();
-
 
 $dompdf->stream("Restaurant_Report_$reportDate.pdf", ["Attachment" => true]);
 exit;

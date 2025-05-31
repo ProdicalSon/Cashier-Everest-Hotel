@@ -1,17 +1,16 @@
 <?php
 include 'db_config.php';
 
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     if (isset($_POST["amount"], $_POST["invoice_code"])) {
-        $amount = $_POST["amount"];
-        $invoice_code = $_POST["invoice_code"];
+        $amount = floatval($_POST["amount"]);
+        $invoice_code = trim($_POST["invoice_code"]);
 
-   
-        $amount = floatval($amount);
-        $invoice_code = trim($invoice_code);
-
-        $sql = "INSERT INTO complimentary (amount, invoice_code) VALUES (?, ?)";
+        $sql = "INSERT INTO cancelled_sales (amount, invoice_code) VALUES (?, ?)";
         $stmt = $conn->prepare($sql);
 
         if (!$stmt) {
@@ -21,9 +20,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->bind_param("ds", $amount, $invoice_code);
 
         if ($stmt->execute()) {
-            echo "✅ Complimentary recorded successfully!";
+            echo "✅ Cancelled sale recorded successfully!";
         } else {
-            echo "❌ Error executing: " . $stmt->error;
+            echo "❌ Error: " . $stmt->error;
         }
 
         $stmt->close();
@@ -33,8 +32,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<!-- HTML Form -->
 <form method="POST">
     <input type="number" step="0.01" name="amount" placeholder="Amount" required><br>
     <input type="text" name="invoice_code" placeholder="Invoice Code" required><br>
-    <button type="submit">Submit Complimentary</button>
+    <button type="submit">Submit Cancelled Sale</button>
 </form>

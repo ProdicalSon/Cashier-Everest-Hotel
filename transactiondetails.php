@@ -39,7 +39,9 @@ function fetchData($conn, $table, $fields, $reportDate) {
         .total-row { font-weight: bold; background-color: #e8f5e9; }
         .section { margin-bottom: 40px; }
         form { text-align: center; margin: 20px auto; width: 500px; display:flex; flex-direction: block; align-items: center; }
-        input[type="date"] { padding: 8px; margin-right: 10px; }
+        input[type="date"] { padding: 8px; margin-right: 20px; }
+        input[type="submit"] { padding: 8px; margin-left: 20px; }
+        label[for="total_sales"] { margin-right: 10px; }
         input[type="submit"] { padding: 8px 16px; cursor: pointer; background-color: green; color: white; border: none; border-radius: 4px; }
     </style>
 </head>
@@ -48,7 +50,7 @@ function fetchData($conn, $table, $fields, $reportDate) {
         <ul>
             <li><a href="index.html">Dashboard</a></li>
             <li><a href="transactiondetails.php">Transactions</a></li>
-            <li><a href="#reports">Reports</a></li>
+            <li><a href="generate_report.php">Reports</a></li>
         </ul>
     </nav>
 
@@ -62,9 +64,9 @@ function fetchData($conn, $table, $fields, $reportDate) {
 
 <form method="POST" action="generate_report.php" style="text-align:center; margin-top: 20px;">
     <input type="hidden" name="report_date" value="<?= htmlspecialchars($reportDate) ?>">
-    <label for="total_sales">Enter Total Sales:</label>
+    <label for="total_sales">ENTER T.S</label>
     <input type="number" step="0.01" name="total_sales" id="total_sales" required>
-    <input type="submit" value="Download Restaurant Report as PDF">
+    <input type="submit" value="Download Report">
 </form>
 
 
@@ -81,8 +83,8 @@ foreach ($transactions as $label => [$table, $fieldStr, $columns]) {
 
         // Table headers
         foreach ($columns as $col) {
-            if ($col === 'namee') echo "<th>Name/Item</th>";
-            elseif ($col === 'code') echo "<th>Code/Invoice</th>";
+            if ($col === 'namee') echo "<th>Name</th>";
+            elseif ($col === 'code') echo "<th>Code</th>";
             elseif ($col === 'amount') echo "<th>Amount (KES)</th>";
             elseif ($col === 'created_at') echo "<th>Date</th>";
         }
