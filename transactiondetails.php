@@ -38,9 +38,9 @@ function fetchData($conn, $table, $fields, $reportDate) {
         th { background-color: #f0f0f0; }
         .total-row { font-weight: bold; background-color: #e8f5e9; }
         .section { margin-bottom: 40px; }
-        form { text-align: center; margin: 20px auto; }
+        form { text-align: center; margin: 20px auto; width: 500px; display:flex; flex-direction: block; align-items: center; }
         input[type="date"] { padding: 8px; margin-right: 10px; }
-        input[type="submit"] { padding: 8px 16px; cursor: pointer; }
+        input[type="submit"] { padding: 8px 16px; cursor: pointer; background-color: green; color: white; border: none; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -56,9 +56,8 @@ function fetchData($conn, $table, $fields, $reportDate) {
 
 <!-- Date Filter Form -->
 <form method="GET" action="transactiondetails.php">
-    <label for="date">Select Date:</label>
     <input type="date" name="date" id="date" value="<?= htmlspecialchars($reportDate) ?>" required>
-    <input type="submit" value="Filter">
+    <input type="submit" value="SEARCH">
 </form>
 
 <?php
