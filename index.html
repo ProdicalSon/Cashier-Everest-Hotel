@@ -18,106 +18,155 @@
         </ul>
     </nav>
 
-    <!-- Cashier Monitor Section -->
     <div class="container1">
         <h2>CASHIER SALES MONITOR</h2>
-
     </div>
 
-    <!-- Forms Section -->
     <div class="container">
 
+        <!-- Mpesa Form -->
         <div class="form-box">
             <h3>Mpesa Details Form</h3>
             <form action="register_mpesa.php" method="POST">
                 <label for="name">Cashier Name</label>
-                <input type="text" name="namee" required placeholder="Enter cashier name" title="Cashier Name">
+                <input type="text" name="namee" required placeholder="Enter cashier name">
 
                 <label for="amount">Amount</label>
-                <input type="number" name="amount" required placeholder="Enter amount" title="Amount">
+                <input type="number" name="amount" required placeholder="Enter amount">
 
                 <label for="code">Transaction Code</label>
-                <input type="text" name="code" required placeholder="Enter transaction code" title="Transaction Code">
+                <input type="text" name="code" required placeholder="Enter transaction code">
+
+                <label for="date">Transaction Date</label>
+                <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
 
                 <button type="submit">Submit Mpesa Details</button>
             </form>
         </div>
 
-
+        <!-- Cancelled Sales -->
         <div class="form-box">
             <h3>Cancelled Sales Form</h3>
             <form action="register_cancelled_sales.php" method="POST">
                 <label for="amount">Amount</label>
-                <input type="number" name="amount" required title="Amount" placeholder="Enter paid bills amount">
+                <input type="number" name="amount" required placeholder="Enter cancelled amount">
 
                 <label for="invoice_code">Invoice Code</label>
-                <input type="number" name="invoice_code" required title="Invoice ode" placeholder="Enter Invoice Code">
+                <input type="number" name="invoice_code" required placeholder="Enter Invoice Code">
 
-                <button type="submit">Submit Paid Bills</button>
+                <label for="date">Transaction Date</label>
+                <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
+
+                <button type="submit">Submit Cancelled Sale</button>
             </form>
         </div>
 
-
-
+        <!-- Paid Bills -->
         <div class="form-box">
             <h3>Paid Bills Form</h3>
             <form action="register_paid_bills.php" method="POST">
                 <label for="name">Name</label>
-                <input type="text" name="namee" required title="Cashier Name" placeholder="Enter cashier name">
+                <input type="text" name="namee" required placeholder="Enter cashier name">
 
                 <label for="paid_bills">Amount</label>
-                <input type="number" name="paid_bills" required title="Paid Bills Amount" placeholder="Enter paid bills amount">
+                <input type="number" name="paid_bills" required placeholder="Enter paid bills amount">
 
                 <label for="invoice_code">Invoice Code</label>
-                <input type="number" name="invoice_code" required title="Invoice ode" placeholder="Enter Invoice Code">
+                <input type="number" name="invoice_code" required placeholder="Enter Invoice Code">
+
+                <label for="date">Transaction Date</label>
+                <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
 
                 <button type="submit">Submit Paid Bills</button>
             </form>
         </div>
 
+        <!-- Unpaid Bills -->
         <div class="form-box">
             <h3>Unpaid Bills Form</h3>
             <form action="register_unpaid_bills.php" method="POST">
                 <label for="name">Name</label>
-                <input type="text" name="namee" required title="Name" placeholder="Enter name">
+                <input type="text" name="namee" required placeholder="Enter name">
 
                 <label for="unpaid_bills">Amount</label>
-                <input type="number" name="unpaid_bills" required title="Unpaid Bills Amount" placeholder="Enter unpaid bills amount">
+                <input type="number" name="unpaid_bills" required placeholder="Enter unpaid bills amount">
 
                 <label for="invoice_code">Invoice Code</label>
-                <input type="number" name="invoice_code" required title="Invoice Code" placeholder="Enter Invoice Code">
+                <input type="number" name="invoice_code" required placeholder="Enter Invoice Code">
+
+                <label for="date">Transaction Date</label>
+                <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
 
                 <button type="submit">Submit Unpaid Bills</button>
             </form>
         </div>
 
+        <!-- Expenses -->
         <div class="form-box">
             <h3>Expenses Form</h3>
             <form action="register_expenses.php" method="POST">
                 <label for="name">Item Name</label>
-                <input type="text" name="namee" required title="Item Name" placeholder="Enter item name">
+                <input type="text" name="namee" required placeholder="Enter item name">
 
                 <label for="expenses">Expense Amount</label>
-                <input type="number" name="amount" required title="Expense Amount" placeholder="Enter expense amount">
+                <input type="number" name="amount" required placeholder="Enter expense amount">
+
+                <label for="date">Transaction Date</label>
+                <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
 
                 <button type="submit">Submit Expense</button>
             </form>
         </div>
 
+        <!-- Complimentary -->
         <div class="form-box">
             <h3>Complimentary Form</h3>
             <form action="register_complimentary.php" method="POST">
-                <label for="name">Amount</label>
-                <input type="number" name="amount" required title="Amount" placeholder="Enter amount">
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" required placeholder="Enter amount">
 
-                <label for="complimentary">Invoice Code</label>
-                <input type="number" name="complimentary" required title="Invoice Code" placeholder="Enter invoice code">
+                <label for="invoice_code">Invoice Code</label>
+                <input type="number" name="invoice_code" required placeholder="Enter invoice code">
+
+                <label for="date">Transaction Date</label>
+                <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
 
                 <button type="submit">Submit Complimentary</button>
             </form>
         </div>
 
     </div>
+
+    <!-- JavaScript to handle AJAX form submission -->
+    <script>
+        // Get all forms on the page
+        document.querySelectorAll("form").forEach(form => {
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();
+
+                // Gather the form data
+                const formData = new FormData(form);
+
+                // Send the form data using Fetch API
+                fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.text())
+                    .then(data => {
+                        // Handle the response here (e.g., show a success message)
+                        console.log(data);
+                        alert("Submission successful!");
+                        // Optionally clear the form after submission
+                        form.reset();
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                        alert("An error occurred during submission.");
+                    });
+            });
+        });
+    </script>
 
 </body>
 
