@@ -1,18 +1,19 @@
 <?php 
 include 'db_config.php';
 
-// Default to today's date if no date is provided via GET
+
 $reportDate = date("Y-m-d");
 if (isset($_GET['date']) && !empty(trim($_GET['date']))) {
-    // Sanitize the incoming date using real_escape_string after trim
+    
     $reportDate = $conn->real_escape_string(trim($_GET['date']));
 }
 
-// Format the report date nicely for display
+
+
 $timestamp = strtotime($reportDate);
 $formattedDate = strtoupper(date('jS F, Y', $timestamp));
 
-// Define the transaction types with their table name, SQL field list, and columns for rendering
+
 $transactions = [
     'Mpesa'         => ["mpesa", "namee, amount, code, created_at", ['namee', 'amount', 'code', 'created_at']],
     'Paid Bill'     => ["paid_bills", "namee, amount, invoice_code AS code, created_at", ['namee', 'amount', 'code', 'created_at']],
@@ -22,7 +23,7 @@ $transactions = [
     'Cancelled Sale'=> ["cancelled_sales", "invoice_code AS code, amount, created_at", ['code', 'amount', 'created_at']]
 ];
 
-// Function to fetch data from a given table for the selected date using a prepared statement
+
 function fetchData($conn, $table, $fields, $reportDate) {
     $query = "SELECT $fields FROM $table WHERE DATE(created_at) = ?";
     $stmt = $conn->prepare($query);

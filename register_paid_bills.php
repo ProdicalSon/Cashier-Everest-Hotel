@@ -11,16 +11,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $namee = trim($_POST["namee"]);
         $amount = floatval($_POST["amount"]);
         $invoice_code = trim($_POST["invoice_code"]);
+         $created_at = $_POST["created_at"];
 
         // Make sure your table has the correct columns: namee, amount, invoice_code
-        $sql = "INSERT INTO paid_bills (namee, amount, invoice_code) VALUES (?, ?, ?)";
+        $sql = "INSERT INTO paid_bills (namee, amount, invoice_code, created_at) VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($sql);
 
         if (!$stmt) {
             die("Prepare failed: " . $conn->error);
         }
 
-        $stmt->bind_param("sds", $namee, $amount, $invoice_code);
+        $stmt->bind_param("sdss", $namee, $amount, $invoice_code, $created_at);
 
         if ($stmt->execute()) {
             echo "✅ Paid bill recorded successfully!";
