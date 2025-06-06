@@ -63,10 +63,9 @@ function fetchData($conn, $table, $fields, $reportDate) {
         </ul>
     </nav>
 
-    <!-- Display the report date in a friendly format -->
+    
     <h2>TRANSACTION REPORT ON <?= $formattedDate ?></h2>
 
-    <!-- Date Filter Form: Users can change the date, and the page will reload with the selected date's transactions -->
     <form method="GET" action="transactiondetails.php">
         <input type="date" name="date" id="date" value="<?= htmlspecialchars($reportDate) ?>" required>
         <input type="submit" value="SEARCH">
@@ -81,7 +80,7 @@ function fetchData($conn, $table, $fields, $reportDate) {
     </form>
 
     <?php
-    // Loop through each transaction category and render the data table
+  
     foreach ($transactions as $label => [$table, $fieldStr, $columns]) {
         $result = fetchData($conn, $table, $fieldStr, $reportDate);
         $sectionTotal = 0;
@@ -92,7 +91,7 @@ function fetchData($conn, $table, $fields, $reportDate) {
         if ($result && $result->num_rows > 0) {
             echo "<table><tr>";
 
-            // Print table headers based on columns
+         
             foreach ($columns as $col) {
                 if ($col === 'namee') echo "<th>Name</th>";
                 elseif ($col === 'code') echo "<th>Code</th>";
@@ -101,12 +100,12 @@ function fetchData($conn, $table, $fields, $reportDate) {
             }
             echo "</tr>";
 
-            // Render each data row from the query result
+           
             while ($row = $result->fetch_assoc()) {
                 echo "<tr>";
                 foreach ($columns as $col) {
                     if ($col === 'created_at') {
-                        // Format the date from YYYY-MM-DD to dd-mm-YYYY format
+                        
                         echo "<td>" . htmlspecialchars(date('d-m-Y', strtotime($row[$col]))) . "</td>";
                     } elseif ($col === 'amount') {
                         echo "<td>" . number_format($row[$col], 2) . "</td>";
@@ -118,7 +117,7 @@ function fetchData($conn, $table, $fields, $reportDate) {
                 echo "</tr>";
             }
 
-            // Render the total row for this transaction type
+           
             echo "<tr class='total-row'><td colspan='" . (count($columns) - 1) . "'>TOTAL</td><td>KES " . number_format($sectionTotal, 2) . "</td></tr>";
             echo "</table>";
         } else {
