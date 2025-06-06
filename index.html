@@ -44,6 +44,7 @@
             </form>
         </div>
 
+
         <!-- Cancelled Sales -->
         <div class="form-box">
             <h3>Cancelled Sales Form</h3>
@@ -68,8 +69,8 @@
                 <label for="name">Name</label>
                 <input type="text" name="namee" required placeholder="Enter cashier name">
 
-                <label for="paid_bills">Amount</label>
-                <input type="number" name="paid_bills" required placeholder="Enter paid bills amount">
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" required placeholder="Enter paid bills amount">
 
                 <label for="invoice_code">Invoice Code</label>
                 <input type="number" name="invoice_code" required placeholder="Enter Invoice Code">
@@ -81,6 +82,7 @@
             </form>
         </div>
 
+
         <!-- Unpaid Bills -->
         <div class="form-box">
             <h3>Unpaid Bills Form</h3>
@@ -88,8 +90,8 @@
                 <label for="name">Name</label>
                 <input type="text" name="namee" required placeholder="Enter name">
 
-                <label for="unpaid_bills">Amount</label>
-                <input type="number" name="unpaid_bills" required placeholder="Enter unpaid bills amount">
+                <label for="amount">Amount</label>
+                <input type="number" name="amount" required placeholder="Enter unpaid bills amount">
 
                 <label for="invoice_code">Invoice Code</label>
                 <input type="number" name="invoice_code" required placeholder="Enter Invoice Code">
@@ -97,9 +99,10 @@
                 <label for="date">Transaction Date</label>
                 <input type="date" name="created_at" required placeholder="Select transaction date" title="Transaction Date">
 
-                <button type="submit">Submit Unpaid Bills</button>
+                <button type="submit">Submit Unpaid Bill</button>
             </form>
         </div>
+
 
         <!-- Expenses -->
         <div class="form-box">
@@ -139,25 +142,24 @@
 
     <!-- JavaScript to handle AJAX form submission -->
     <script>
-        // Get all forms on the page
         document.querySelectorAll("form").forEach(form => {
             form.addEventListener("submit", function(event) {
                 event.preventDefault();
 
-                // Gather the form data
+
                 const formData = new FormData(form);
 
-                // Send the form data using Fetch API
+
                 fetch(form.action, {
                         method: 'POST',
                         body: formData
                     })
                     .then(response => response.text())
                     .then(data => {
-                        // Handle the response here (e.g., show a success message)
+
                         console.log(data);
                         alert("Submission successful!");
-                        // Optionally clear the form after submission
+
                         form.reset();
                     })
                     .catch(error => {
